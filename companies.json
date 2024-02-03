@@ -1,0 +1,15 @@
+[   
+    {
+        "name": "Nucamp",
+        "number_of_employees": 150,
+        "CEO": "Ludo Fourrage",
+        "glassdoorRating": 5.0
+    },
+    
+    {
+        "name": "Microsoft",
+        "number_of_employees": 150000,
+        "CEO": "Satya Nadella",
+        "rating": 4.7
+    }
+]
