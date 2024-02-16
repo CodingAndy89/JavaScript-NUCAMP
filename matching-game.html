@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Matching Game</title>
+  <style>
+    /* Added background image and styling text */
+    body {
+      background-image: url(images/1971371.jpg);
+      background-size: 120%;
+    }
+
+    h1 {
+      font: 50px bold, Comic Sans, Comic Sans MS, cursive;
+    }
+
+    p {
+      font: 20px sans-serif;
+    }
+
+    img {
+      position: absolute;
+    }
+
+    div {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+    }
+
+    #rightSide {
+      left: 500px;
+      border-left: 1px solid;
+    }
+
+    /* Button styling */
+    button {
+      margin-bottom: 10px;
+      color: black;
+      font: 20px Andale Mono, monospace;
+      background-image: linear-gradient(AntiqueWhite, blue);
+
+      border-radius: 25px;
+      width: 100px;
+      height: 70px;
+    }
+
+    button:hover {
+      color: orangered;
+      border-color: red;
+    }
+
+    button:active {
+      color: royalblue;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Matching Game</h1>
+  <p>Click on the extra smiling face on the left.</p>
+  <!-- Added Reset Button -->
+  <button onclick="resetFn()">Reset</button>
+  <div id="leftSide"></div>
+  <div id="rightSide"></div>
+
+  <script>
+    // added input to allow user to choose number of faces to generate.
+    let input = parseInt(
+      prompt("Enter the number of faces to be generated:")
+    );
+    let numberOfFaces = isNaN(parseInt(input)) ? 0 : parseInt(input);
+
+    let theLeftSide = document.querySelector("#leftSide");
+    let theRightSide = document.querySelector("#rightSide");
+    let numberOfAttempts = 0;
+
+    window.addEventListener("load", generateFaces);
+
+    function generateFaces() {
+      if (numberOfFaces === 0) {
+        alert("The Game is Cancelled. ");
+        return;
+      }
+
+      for (i = 0; i < numberOfFaces; i++) {
+        let face = document.createElement("img");
+        face.src = "images/smile.png";
+        
+        let randomTop = Math.floor(Math.random() * 400) + 1;
+        let randomLeft = Math.floor(Math.random() * 400) + 1;
+        
+        face.style.top = randomTop + "px";
+        face.style.left = randomLeft + "px";
+        theLeftSide.appendChild(face);
+      }
+
+      const leftSideImages = theLeftSide.cloneNode(true);
+      leftSideImages.removeChild(leftSideImages.lastChild);
+      theRightSide.appendChild(leftSideImages);
+      theLeftSide.lastElementChild.addEventListener("click", nextLevel);
+      document.body.addEventListener("click", gameOver);
+    }
+
+    function nextLevel() {
+      event.stopPropagation();
+      numberOfFaces += 5;
+
+      while (theLeftSide.firstChild) {
+        theLeftSide.removeChild(theLeftSide.firstChild);
+      }
+      while (theRightSide.firstChild) {
+        theRightSide.removeChild(theRightSide.firstChild);
+      }
+      
+      numberOfAttempts += 1;
+      generateFaces();
+    }
+
+    function gameOver() {
+      alert("GAME OVER \n The number of attempts: " + numberOfAttempts);
+      document.body.removeEventListener("click", gameOver);
+      resetFn();
+      theLeftSide.lastElementChild.removeEventListener("click", nextLevel);
+    }
+
+    function resetFn() {
+      location.reload();
+    }
+  </script>
+</body>
+
+</html>

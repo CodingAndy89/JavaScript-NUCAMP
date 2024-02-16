@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Color Generator</title>
+    <style>
+        #container {
+            align-items: center;
+            width: 20%;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Color Generator</h1>
+
+    <button id="colorBtn">Change Color</button>
+    <button id="resetBtn">Reset Color</button>
+
+    <div id="container">Color Code: <span id="colorCode">#FFFFFF</span></div>
+
+    <script>
+        function randomColor() {
+            let hexaValues = '0123456789ABCDEF';
+            let color = '#';
+            for(let i = 0; i< 6; i++){
+                color += hexaValues[Math.floor(Math.random() *16)];
+            }
+            return color;
+        }
+            
+            const idBtn = document.getElementById('colorBtn');
+
+            idBtn.addEventListener('click', function() {
+                const color = randomColor();
+                document.getElementById('container').style.background = color;
+                document.getElementById('colorCode').innerText = color;
+            });
+            idBtn.addEventListener('mouseover', function(){
+                this.style.backgroundColor = 'pink';
+            });
+
+            idBtn.addEventListener('mouseout', function(){
+                this.style.backgroundColor = 'lightblue';
+            });
+            
+            document.getElementById('resetBtn').addEventListener('click', function(){
+                document.getElementById('container').style.background = '#FFFFFF';
+                document.getElementById('colorCode').innerText = '#FFFFFF';
+            });
+        
+    </script>
+</body>
+</html>
